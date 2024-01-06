@@ -1,4 +1,5 @@
 import random
+from linked_list import Node, LinkedList, DoublyLinkedList
 
 def fill_random_list(list):
     for i in range(len(list)):
@@ -17,6 +18,7 @@ def exercise1():
     fill_random_list(list)
     print("Lista aleatoria: \n", list)
     print(f'La suma de los elementos del arreglo es: {plus_elements_array(list, len(list)-1)}')
+   
     
 
 def get_largest_number(list, i, number):
@@ -33,6 +35,7 @@ def exercise2():
     fill_random_list(list)
     print("Lista aleatoria: \n", list)
     print(f'El número mayor de la lista es: {get_largest_number(list, len(list)-1, list[-1])}')
+    
     
     
 def plus_multiple_digits(A, multiple, i, B = None):
@@ -58,6 +61,7 @@ def exercise3():
     list_multiple = plus_multiple_digits(list, multiple, size-1)
     list_multiple.reverse()
     print(f'La suma de los digitos multiplos de {multiple} es: {list_multiple}')
+   
     
     
 def print_matrix_recursive(matrix, row):
@@ -76,8 +80,7 @@ def is_symmetric_matrix(matrix, i, j):
     if len(matrix) != len(matrix[0]):
         return False
     if matrix[i][j] != matrix[j][i]:
-        return False
-    
+        return False  
     return is_symmetric_matrix(matrix, i, j-1)
 
 def exercise4():
@@ -88,6 +91,7 @@ def exercise4():
     print("Matriz:")
     print_matrix_recursive(matrix, len(matrix)-1)
     print(f'La matriz es simétrica: {is_symmetric_matrix(matrix, len(matrix)-1, len(matrix[0])-1)}')
+    
     
     
 def fill_random_matrix(matrix):
@@ -128,7 +132,6 @@ def multiply_matrices_recursive(A, B, res, i, j, k, sum=0):
     sum += A[i][k] * B[k][j]
     return multiply_matrices_recursive(A, B, res, i, j, k-1, sum)
 
-
 def exercise6():
     print("\nEjecutando el ejercicio 6...")
     rowsA = int(input("Ingrese el número de filas de la matriz A: "))
@@ -154,15 +157,25 @@ def exercise6():
 
 def exercise7():
     print("\nEjecutando el ejercicio 7...")
+    size = int(input("Ingrese el tamaño de la lista enlazada: "))
+    linked_list = LinkedList()
+    for i in range(size):
+        linked_list.add_element(random.randint(0, 100))
+    print("Lista enlazada al azar: ")
+    linked_list.print_list(linked_list.head)
+
 
 def exercise8():
     print("\nEjecutando el ejercicio 8...")
 
+
 def exercise9():
     print("\nEjecutando el ejercicio 9...")
 
+
 def exercise10():
     print("\nEjecutando el ejercicio 10...")
+
 
 def menu():
     while True:
