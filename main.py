@@ -51,7 +51,7 @@ class DoublyLinkedList:
 #Arbol binario
 class BinarieTree:
     def __init__(self, data):
-        self.raiz = Node(data)
+        self.root = Node(data)
 
     def recursive_add(self, node, data):
         if data < node.data:
@@ -66,7 +66,7 @@ class BinarieTree:
                 self.recursive_add(node.next, data)
                 
     def add(self, dato):
-        self.recursive_add(self.raiz, dato)
+        self.recursive_add(self.root, dato)
 
     def inorder(self, node):
         if node is not None:
@@ -85,6 +85,15 @@ class BinarieTree:
             self.postorder(node.prev)
             self.postorder(node.next)
             print(node.data, end=":  ")
+            
+    def count_leaf_nodes(self, node):
+        if node is None:
+            return 0
+        if node.prev is None and node.next is None:
+            return 1
+        left_count = self.count_leaf_nodes(node.prev)
+        right_count = self.count_leaf_nodes(node.next)
+        return left_count + right_count
 
 
 #########################
@@ -265,16 +274,24 @@ def exercise8():
     for i in range(0,size-1):
         arbol.add(random.randint(0, 100))
     print("\nRecorrido inorder")
-    arbol.inorder(arbol.raiz)
+    arbol.inorder(arbol.root)
     print("\nRecorrido preorder")
-    arbol.preorder(arbol.raiz)
+    arbol.preorder(arbol.root)
     print("\nRecorrido postorder")
-    arbol.postorder(arbol.raiz)
+    arbol.postorder(arbol.root)
     
     
 def exercise9():
     print("\nEjecutando el ejercicio 9...")
+    print("Se insertará en el arbol la cantidad de numeros randómicos especificada")
+    size = int(input("Ingrese la cantidad de elementos: "))
+    arbol= BinarieTree(random.randint(0, 100))
+    for i in range(0,size-1):
+        arbol.add(random.randint(0, 100))
+    print("\nConteo de nodos hoja")
+    print(arbol.count_leaf_nodes(arbol.root))
     
+
 
 def exercise10():
     print("\nEjecutando el ejercicio 10...")
