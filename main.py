@@ -1,6 +1,97 @@
+#Importaciones 
 import random
-from linked_list import Node, LinkedList, DoublyLinkedList
+#########################
+#Clases necesarias para ejercicios
+#########################
+#Nodo
+class Node:
+    def __init__(self, data=None):
+        self.data = data
+        self.prev = None
+        self.next = None
 
+#Lista enlazada
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def add_element(self, data):
+        if not self.head:
+            self.head = Node(data)
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = Node(data)
+
+    def print_list(self, node):
+        if node is not None:
+            print(node.data)
+            self.print_list(node.next)
+
+#Lista doblemente enlazada
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def add_element(self, data):
+        if not self.head:
+            self.head = self.tail = Node(data)
+        else:
+            new_node = Node(data)
+            new_node.prev = self.tail
+            self.tail.next = new_node
+            self.tail = new_node
+
+    def print_list_reverse(self, node):
+        if node is not None:
+            print(node.data)
+            self.print_list_reverse(node.prev)
+#Arbol binario
+class BinarieTree:
+    def __init__(self, data):
+        self.raiz = Node(data)
+
+    def recursive_add(self, node, data):
+        if data < node.data:
+            if node.prev is None:
+                node.prev = Node(data)
+            else:
+                self.recursive_add(node.prev, data)
+        else:
+            if node.next is None:
+                node.next = Node(data)
+            else:
+                self.recursive_add(node.next, data)
+                
+    def add(self, dato):
+        self.recursive_add(self.raiz, dato)
+
+    def inorder(self, node):
+        if node is not None:
+            self.inorder(node.prev)
+            print(node.data, end=":  ")
+            self.inorder(node.next)
+
+    def preorder(self, node):
+        if node is not None:
+            print(node.data, end=":  ")
+            self.preorder(node.prev)
+            self.preorder(node.next)
+
+    def postorder(self, node):
+        if node is not None:
+            self.postorder(node.prev)
+            self.postorder(node.next)
+            print(node.data, end=":  ")
+
+
+#########################
+#Metodos Ejercicios
+#########################
+
+#Ejercicio 1
 def fill_random_list(list):
     for i in range(len(list)):
         list[i] = random.randint(1, 100)
@@ -20,7 +111,7 @@ def exercise1():
     print(f'La suma de los elementos del arreglo es: {plus_elements_array(list, len(list)-1)}')
    
     
-
+#Ejercicio 2
 def get_largest_number(list, i, number):
     if i < 0:
         return number
@@ -37,7 +128,7 @@ def exercise2():
     print(f'El número mayor de la lista es: {get_largest_number(list, len(list)-1, list[-1])}')
     
     
-    
+#Ejercicio 3
 def plus_multiple_digits(A, multiple, i, B = None):
     if B is None:
         B = []
@@ -63,7 +154,7 @@ def exercise3():
     print(f'La suma de los digitos multiplos de {multiple} es: {list_multiple}')
    
     
-    
+#Ejercicio 4
 def print_matrix_recursive(matrix, row):
     if row == -1:
         return
@@ -93,7 +184,7 @@ def exercise4():
     print(f'La matriz es simétrica: {is_symmetric_matrix(matrix, len(matrix)-1, len(matrix[0])-1)}')
     
     
-    
+#Ejercicio 5   
 def fill_random_matrix(matrix):
     for i in range(len(matrix)):
         for j in range(len(matrix[0])):
@@ -119,7 +210,7 @@ def exercise5():
     print(f'La suma de las filas impares es: {plus_odd_rows(matrix, rows-1)}')
     
 
-
+#Ejercicio 6
 def multiply_matrices_recursive(A, B, res, i, j, k, sum=0):
     if i < 0:
         return res
@@ -155,6 +246,7 @@ def exercise6():
     print_matrix_recursive(AB, rowsA-1)
     
 
+#Ejercicio 7
 def exercise7():
     print("\nEjecutando el ejercicio 7...")
     size = int(input("Ingrese el tamaño de la lista enlazada: "))
@@ -167,11 +259,22 @@ def exercise7():
 
 def exercise8():
     print("\nEjecutando el ejercicio 8...")
-
-
+    print("Se insertará en el arbol la cantidad de numeros randómicos especificada")
+    size = int(input("Ingrese la cantidad de elementos: "))
+    arbol= BinarieTree(random.randint(0, 100))
+    for i in range(0,size-1):
+        arbol.add(random.randint(0, 100))
+    print("\nRecorrido inorder")
+    arbol.inorder(arbol.raiz)
+    print("\nRecorrido preorder")
+    arbol.preorder(arbol.raiz)
+    print("\nRecorrido postorder")
+    arbol.postorder(arbol.raiz)
+    
+    
 def exercise9():
     print("\nEjecutando el ejercicio 9...")
-
+    
 
 def exercise10():
     print("\nEjecutando el ejercicio 10...")
