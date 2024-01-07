@@ -94,7 +94,18 @@ class BinarieTree:
         left_count = self.count_leaf_nodes(node.prev)
         right_count = self.count_leaf_nodes(node.next)
         return left_count + right_count
-
+    
+    def find_path_to_node(self, node, find_data, current_path=None):
+        if current_path is None:
+            current_path = []
+        if node is None:
+            return None
+        current_path.append(node.data)
+        if node.data == find_data:
+            return current_path
+        left_path = self.find_path_to_node(node.prev, find_data, current_path.copy())
+        right_path = self.find_path_to_node(node.next, find_data, current_path.copy())
+        return left_path or right_path
 
 #########################
 #Metodos Ejercicios
@@ -266,6 +277,7 @@ def exercise7():
     linked_list.print_list(linked_list.head)
 
 
+#Ejercicio 8
 def exercise8():
     print("\nEjecutando el ejercicio 8...")
     print("Se insertará en el arbol la cantidad de numeros randómicos especificada")
@@ -280,7 +292,8 @@ def exercise8():
     print("\nRecorrido postorder")
     arbol.postorder(arbol.root)
     
-    
+ 
+#Ejercicio 9   
 def exercise9():
     print("\nEjecutando el ejercicio 9...")
     print("Se insertará en el arbol la cantidad de numeros randómicos especificada")
@@ -292,9 +305,22 @@ def exercise9():
     print(arbol.count_leaf_nodes(arbol.root))
     
 
-
+#Ejercicio 10
 def exercise10():
     print("\nEjecutando el ejercicio 10...")
+    print("Se insertará en el arbol la cantidad de numeros randómicos especificada")
+    size = int(input("Ingrese la cantidad de elementos: "))
+    arbol= BinarieTree(random.randint(0, 100))
+    for i in range(0,size-1):
+        arbol.add(random.randint(0, 100))
+    arbol.inorder(arbol.root)
+    #Buscar data 
+    find_data = int(input("Ingrese el número a buscar: "))
+    path_to_node = arbol.find_path_to_node(arbol.root, find_data)
+    if path_to_node:
+        print(f"\nCamino hasta el nodo {find_data}: {path_to_node}")
+    else:
+        print(f"\nNo se encontró el nodo: {find_data}")
 
 
 def menu():
